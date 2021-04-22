@@ -1,43 +1,73 @@
 import React from "react";
-import Aux from "../../hoc/Aux";
-import "./Layout.css";
+import MenuIcon from "./hamburger.jpeg";
+import DownArrow from "./downarrow.jpeg";
 
 const layout = (props) => {
   return (
-    <Aux>
-      <div class="d-flex" id="wrapper">
-        <div class="bg-light border-right" id="sidebar-wrapper">
-          <div class="sidebar-heading">(ChoDi img LOGO)</div>
-          <div class="list-group list-group-flush">
-            <a href="#" class="list-group-item list-group-item-action bg-light">
-              <b>Events</b>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">
-              Agenda
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">
-              Funds
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">
-              Crm
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">
-              Report
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">
-              Chat
-            </a>
+    <div style={{ display: "flex" }}>
+      <div
+        style={{
+          backgroundColor: "#ebebeb",
+          fontSize: "1.2rem",
+          width: "15.625rem",
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          boxSizing: "border-box",
+        }}
+      >
+        <div style={{ margin: "15px 0 15px 15px" }}>(ChoDi img LOGO)</div>
+        <div
+          style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
+        ></div>
+        <div style={{ margin: "15px 0 15px 15px" }}> Events</div>
+        <div
+          style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
+        ></div>
+        <div style={{ margin: "15px 0 15px 15px" }}> Agenda</div>
+        <div
+          style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
+        ></div>
+        <div style={{ margin: "15px 0 15px 15px" }}> Funds</div>
+        <div
+          style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
+        ></div>
+        <div style={{ margin: "15px 0 15px 15px" }}> Crm</div>
+        <div
+          style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
+        ></div>
+        <div style={{ margin: "15px 0 15px 15px" }}> Report</div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          boxSizing: "border-box",
+          flexDirection: "column",
+          width: "100%",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            boxSizing: "border-box",
+            justifyContent: "space-between",
+            border: "0.5px solid #bfbbba",
+            backgroundColor: "#ebebeb",
+            // width: "100%",
+            height: "30px",
+          }}
+        >
+          <div>
+            <img style={{ width: "40px" }} src={MenuIcon} />
+          </div>
+          <div>
+            Account Setting
+            <img style={{ width: "10px" }} src={DownArrow} />
           </div>
         </div>
-        <div> nav, sidebar</div>
-        <main
-          className="container-fluid"
-          style={{ backgroundColor: "rgba(122, 248, 94, 0.068)" }}
-        >
-          {props.children}
-        </main>
+        {props.children}
       </div>
-    </Aux>
+    </div>
   );
 };
 

@@ -3,18 +3,18 @@ import React from "react";
 export default function Fundrasing() {
   return (
     <div>
-      <div style="display: flex; box-sizing: border-box">
+      <div style={{ display: "flex", boxSizing: "border-box" }}>
         <div
-          style="
-              display: flex;
-              flex-direction: column;
-              box-sizing: border-box;
-              width: 70%;
-            "
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            boxSizing: "border-box",
+            width: "70%",
+          }}
         >
           <div
             class="container-fluid"
-            style="background-color: rgba(223, 223, 175, 0.733)"
+            style={{ backgroundColor: "rgba(223, 223, 175, 0.733)" }}
           >
             <h1 class="text-center mt-4">
               <b>Event List: United Hope for Animal</b>
