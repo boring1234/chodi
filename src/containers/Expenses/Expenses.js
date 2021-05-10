@@ -20,6 +20,7 @@ class Expenses extends Component {
         <div>
           <PieChart />
           <Category name="Utilities" total="$15,000" />
+          <Category name="food/drinks" total="$3,000" />
         </div>
       </div>
     );

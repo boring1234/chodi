@@ -4,7 +4,6 @@ import DownArrow from "./downarrow.jpeg";
 import { Route, Link } from "react-router-dom";
 
 const layout = (props) => {
-  console.log("Children: ", props);
   let sidebar = (
     <div
       style={{
@@ -21,6 +20,15 @@ const layout = (props) => {
       }}
     >
       <div style={{ margin: "15px 0 15px 15px" }}>(ChoDi img LOGO)</div>
+      <div
+        style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
+      ></div>
+      <div style={{ margin: "15px 0 15px 15px" }}>
+        <Link to="/upcoming">Upcoming Events</Link>
+      </div>
+      <div
+        style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
+      ></div>
       <div
         style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
       ></div>
@@ -44,6 +52,12 @@ const layout = (props) => {
       ></div>
       <div style={{ margin: "15px 0 15px 15px" }}>
         <Link to="/expenses">Report</Link>
+      </div>
+      <div
+        style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
+      ></div>
+      <div style={{ margin: "15px 0 15px 15px" }}>
+        <Link to="/pm">Project Management</Link>
       </div>
     </div>
   );
