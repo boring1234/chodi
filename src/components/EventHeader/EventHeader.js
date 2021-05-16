@@ -25,12 +25,7 @@ export default function EventHeader() {
       <div>
         <b>EVENT END</b>
       </div>
-      <div>
-        <b>DAY</b>
-      </div>
-      <div>
-        <b>REGISTERED</b>
-      </div>
+
       <div>
         <b>STATUS</b>
       </div>

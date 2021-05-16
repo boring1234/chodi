@@ -28,28 +28,21 @@ export default function Event(props) {
             width: "100px",
             height: "100px",
           }}
-          src={props.picture}
+          src={props.eventPicture}
         ></img>
-        <div>{props.name}</div>
-        <div>{props.type}</div>
-        <div>{props.startDate}</div>
-        <div>{props.endDate}</div>
-        <div>{props.day}</div>
-        <div>{props.registered}</div>
-        <div>{props.status}</div>
-      </div>
-      {/* <div
-        style={{
-          display: "flex",
-          boxSizing: "border-box",
-          justifyContent: "flex-end",
-          width: "100%",
-        }}
-      >
-        <div onClick={props.click}>
-          <b>EDIT &gt;&gt;</b>
+        <div>{props.eventName}</div>
+        <div>{props.attnType}</div>
+        <div>
+          <div>{props.startDate}</div>
+          <div>{props.startTime}</div>
         </div>
-      </div> */}
+        <div>
+          <div>{props.endDate}</div>
+          <div>{props.endTime}</div>
+        </div>
+        <div>{props.status}</div>
+        <button onClick={props.onDelete}>Delete Event</button>
+      </div>
     </div>
   );
 }

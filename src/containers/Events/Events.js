@@ -15,19 +15,41 @@ class Events extends Component {
     leftSize: "100%",
     rightSize: "0%",
     event: [
-      //day endDate name picture registered startDate status type
+      //      { attnType: "Ticketing/Registration"
+      // endDate: "2021-05-19"
+      // endTime: "17:47"
+      // eventName: "dog 5"
+      // eventPicture: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUVFBgVFRUZGRgZHCEdGxsaGhsdJB8hGxsbGxobIRsbIS0kGyIqIRsaJjclKi4xNDQ0HSM6PzozPi0zNDEBCwsLEA8QHxISHzMqJCozMzMzMzMzNTMzNDMzMzMzMzMxMzMzMzMzMzMzMzMzMzMzMzM0MzMzMzMzMzMzNTMzM//AABEIAOAA4QMBIgACEQEDEQH/xAAbAAACAwEBAQAAAAAAAAAAAAAEBQIDBgABB//EAD4QAAECBAQEBAQFAwIGAwEAAAECEQADITEEEkFRBSJhcROBkaEGMrHwQlLB0eEUYvEVI1NygpKTwjOy0iT/xAAaAQADAQEBAQAAAAAAAAAAAAABAgMABAUG/8QAKxEAAgICAgEDAwMFAQAAAAAAAAECEQMhEjFBEyJRBGFxgZGxMkKhwfAU/9oADAMBAAIRAxEAPwDX8TxakFwGSLVuYXyeJEnKcxUr8NNIXYieqchRSyUpVzc2guWi/AYdKpZWFPmLIa72DEx8dHGox934OxD7DJSoN+I6PEkSCkKLMbQv4fh5iQZZISt33cd4JxGIUhDkhVWd6vtEkqlSYRpg1lvmBi7DA5akdDChMyXkckg97xJGMNEpAawJjrxTfgzVj+Qo0c06QUhcIs6ksCRWGEqbasevgnaJSiNAqJQPLXF4j0YPRGSolHR0dDinhgLEGC1GAp64lkeikEBzq0gDEoSEkvUabwROWSe8LsVML7jSPNyyT0dEUKsTM5rDaKOKycyAlEv5BzEfvE5yy5TRz7QqXiJicwB+ahG8c0o27XgcCmcPW7BiWehdoQ4gF41UzDFPOpwTTKNelIST5fiKUyMoHk0Ww5N7FkJVqgecYJnIYmBZh2Fd47YkWDKERCIkqIOYqKyqYKQO9GgpUDTYZAGmIxUkyJSES1iaCfEWpTpUDYBOntbV4hiUZVMGNBa1oWqVQQUitzA40ZHrGOiXnHRjH"
+      // startDate: "2021-06-03"
+      // startTime: "19:49"
+      // status: "active" }
     ],
     events: 0,
     active: 0,
     archived: 0,
-    registered: 0,
   };
 
   componentDidMount() {
     axios
       .get("https://react-chodi-default-rtdb.firebaseio.com/events.json")
       .then((response) => {
-        this.setState({ event: Object.values(response.data) });
+        const temp = [];
+
+        for (const key in response.data) {
+          temp.push({
+            id: key,
+            attnType: response.data[key].attnType,
+            endDate: response.data[key].endDate,
+            endTime: response.data[key].endTime,
+            eventName: response.data[key].eventName,
+            eventPicture: response.data[key].eventPicture,
+            startDate: response.data[key].startDate,
+            startTime: response.data[key].startTime,
+            status: response.data[key].status,
+          });
+        }
+
+        this.setState({ event: [...temp] });
 
         let counter = 0;
         for (let i = 0; i < this.state.event.length; i++) {
@@ -40,14 +62,13 @@ class Events extends Component {
           if (this.state.event[i].status === "archived") counter1++;
         }
         this.setState({ archived: counter1 });
-
-        let counter2 = 0;
-        for (let i = 0; i < this.state.event.length; i++) {
-          if (this.state.event[i].registered !== "") counter2++;
-        }
-        this.setState({ registered: counter2 });
       });
   }
+  onSaveHandler = (data) => {
+    const newData = { ...data };
+    console.log(newData);
+    this.setState({ event: [...this.state.event, newData] });
+  };
 
   handleClickMore = () => {
     const hideDetails = this.state.hideDetails;
@@ -65,6 +86,18 @@ class Events extends Component {
   handdleClickAdd = () => {
     const hideAdd = this.state.hideAdd;
     this.setState({ hideAdd: !hideAdd });
+  };
+
+  deleteButtonHandler = (id) => {
+    this.setState(
+      {
+        event: this.state.event.filter((item) => item.id != id),
+      },
+      () =>
+        axios.delete(
+          `${"https://react-chodi-default-rtdb.firebaseio.com"}/events/${id}.json`,
+        ),
+    );
   };
 
   render() {
@@ -100,29 +133,30 @@ class Events extends Component {
             }}
           >
             <Tracker number={this.state.event.length} title={"events"} />
-            <Tracker number={this.state.registered} title="registered" />
             <Tracker number={this.state.active} title="active" />
             <Tracker number={this.state.archived} title="archived" />
           </div>
 
           <EventHeader />
-          {this.state.event.map((evnt) => (
+          {this.state.event.map((evnt, index) => (
             <Event
-              day={evnt.day}
+              key={evnt.id}
+              attnType={evnt.attnType}
               endDate={evnt.endDate}
-              name={evnt.name}
-              picture={evnt.picture}
-              registered={evnt.registered}
+              endTime={evnt.endTime}
+              eventName={evnt.eventName}
+              eventPicture={evnt.eventPicture}
+              startTime={evnt.startTime}
               startDate={evnt.startDate}
               status={evnt.status}
-              type={evnt.type}
+              onDelete={() => this.deleteButtonHandler(evnt.id)}
               click={this.handleClickMore}
             />
           ))}
           <button style={{ width: "300px" }} onClick={this.handdleClickAdd}>
             Add an event
           </button>
-          {this.state.hideAdd ? null : <Edtr />}
+          {this.state.hideAdd ? null : <Edtr onSave={this.onSaveHandler} />}
         </div>
         {rightSide}
       </div>

@@ -1,42 +1,121 @@
-import React from "react";
-import { Editor } from "@tinymce/tinymce-react";
+import React, { useState } from "react";
+import axios from "../../axios-event";
 
-class Edtr extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { content: "" };
+export default function Edtr(props) {
+  const [eventPicture, setEventPicture] = useState("");
+  const [eventName, setEventName] = useState("");
+  const [attnType, setAttnType] = useState("RSVP Collection");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [status, setStatus] = useState("active");
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  const eventPictureHandler = (event) => {
+    setEventPicture(event.target.value);
+  };
 
-  handleChange(event) {
-    this.setState({ content: event.target.value });
-  }
+  const eventNameHandler = (event) => {
+    setEventName(event.target.value);
+  };
 
-  handleSubmit(event) {
-    alert("Text was submitted: " + this.state.content);
+  const attnTypeHandler = (event) => {
+    setAttnType(event.target.value);
+  };
+
+  const startDateHandler = (event) => {
+    setStartDate(event.target.value);
+  };
+  const endDateHandler = (event) => {
+    setEndDate(event.target.value);
+  };
+
+  const startTimeHandler = (event) => {
+    setStartTime(event.target.value);
+  };
+
+  const endTimeHandler = (event) => {
+    setEndTime(event.target.value);
+  };
+
+  const statusHandler = (event) => {
+    setStatus(event.target.value);
+  };
+
+  const submitHandler = (event) => {
     event.preventDefault();
-  }
+    setEventPicture("");
+    setEventName("");
+    setAttnType("RSVP Collection");
+    setStartDate("");
+    setEndDate("");
+    setStartTime("");
+    setEndTime("");
+    setStatus("active");
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <h2>Event</h2>
-        <h3>Provide details</h3>
-        <Editor
-          value={this.state.content}
-          init={{
-            height: 500,
-            menubar: false,
-          }}
-          onEditorChange={this.handleChange}
-        />
-        <br />
-        <input type="submit" value="Submit" />
-      </form>
+    const data = {
+      eventPicture: eventPicture,
+      eventName: eventName,
+      attnType: attnType,
+      startDate: startDate,
+      endDate: endDate,
+      startTime: startTime,
+      endTime: endTime,
+      status: status,
+    };
+    // console.log(data.eventPicture);
+    props.onSave(data);
+    axios.post(
+      "https://react-chodi-default-rtdb.firebaseio.com/events.json",
+      data,
     );
-  }
-}
+  };
 
-export default Edtr;
+  return (
+    <div>
+      <form onSubmit={submitHandler}>
+        <p>EVENT PICTURE</p>
+        <input
+          type="text"
+          value={eventPicture}
+          name="eventPicture"
+          onChange={eventPictureHandler}
+          style={{ width: "400px" }}
+        ></input>
+        <p>EVENT NAME</p>
+        <input
+          type="text"
+          value={eventName}
+          name="eventName"
+          onChange={eventNameHandler}
+          style={{ width: "400px" }}
+        ></input>
+        <p>ATTENDEE TYPE</p>
+        <select value={attnType} onChange={attnTypeHandler}>
+          <option value="Ticketing/Registration">Ticketing/Registration</option>
+          <option value="RSVP Collection">RSVP Collection </option>
+        </select>
+        <p>EVENT START</p>
+        <input
+          type="date"
+          onChange={startDateHandler}
+          value={startDate}
+        ></input>
+        <input
+          type="time"
+          onChange={startTimeHandler}
+          value={startTime}
+        ></input>
+        <p>EVENT END</p>
+        <input type="date" onChange={endDateHandler} value={endDate}></input>
+        <input type="time" onChange={endTimeHandler} value={endTime}></input>
+        <p>STATUS</p>
+        <select value={status} onChange={statusHandler}>
+          <option value="archived">archived</option>
+          <option value="active">active</option>
+        </select>
+        <input type="submit" value="CREATE" />
+      </form>
+    </div>
+  );
+}
