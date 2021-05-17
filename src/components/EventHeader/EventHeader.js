@@ -17,7 +17,7 @@ export default function EventHeader() {
         <b>EVENT</b>
       </div>
       <div>
-        <b>ATTENDEE TYPE</b>
+        <b>TYPE</b>
       </div>
       <div>
         <b>EVENT START</b>

@@ -15,7 +15,7 @@ class Category extends Component {
           <div>
             <b>{this.props.name}</b>
           </div>
-          <div style={{ fontWeight: "lighter" }}>15% of spend</div>
+          <div style={{ fontWeight: "lighter" }}>{this.props.summary}</div>
         </div>
         <div style={{ display: "flex", alignItems: "center" }}>
           <div>{this.props.total}</div>

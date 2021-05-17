@@ -7,13 +7,11 @@ import Edtr from "../../components/Edtr/Edtr";
 import Event from "../../components/Event/Event";
 import EventHeader from "../../components/EventHeader/EventHeader";
 import Tracker from "../../components/Tracker/Tracker";
+import DoubleDownArrow from "./doubleArrow.png";
 
 class Events extends Component {
   state = {
-    hideDetails: true,
     hideAdd: true,
-    leftSize: "100%",
-    rightSize: "0%",
     event: [
       //      { attnType: "Ticketing/Registration"
       // endDate: "2021-05-19"
@@ -70,19 +68,6 @@ class Events extends Component {
     this.setState({ event: [...this.state.event, newData] });
   };
 
-  handleClickMore = () => {
-    const hideDetails = this.state.hideDetails;
-
-    if (hideDetails) {
-      this.setState({ leftSize: "40%", rightSize: "60%" });
-    } else {
-      this.setState({ leftSize: "100%", rightSize: "0%" });
-    }
-
-    this.setState({ hideDetails: !hideDetails });
-    console.log("CLICKED");
-  };
-
   handdleClickAdd = () => {
     const hideAdd = this.state.hideAdd;
     this.setState({ hideAdd: !hideAdd });
@@ -101,19 +86,19 @@ class Events extends Component {
   };
 
   render() {
-    let rightSide = (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          boxSizing: "border-box",
-          width: this.state.rightSize,
-          borderLeft: this.state.hideDetails ? null : "1px solid black",
-        }}
-      >
-        <Edtr />
-      </div>
-    );
+    // let rightSide = (
+    //   <div
+    //     style={{
+    //       display: "flex",
+    //       flexDirection: "column",
+    //       boxSizing: "border-box",
+    //       width: this.state.rightSize,
+    //       borderLeft: this.state.hideDetails ? null : "1px solid black",
+    //     }}
+    //   >
+    //     <Edtr />
+    //   </div>
+    // );
 
     return (
       <div style={{ display: "flex", boxSizing: "border-box" }}>
@@ -122,9 +107,19 @@ class Events extends Component {
             display: "flex",
             flexDirection: "column",
             boxSizing: "border-box",
-            width: this.state.leftSize,
+            width: "100%",
           }}
         >
+          <div style={{ marginBottom: "20px" }}>
+            <button style={{ width: "200px" }} onClick={this.handdleClickAdd}>
+              Add an event
+            </button>
+            <img
+              style={{ width: "20px", marginLeft: "5px" }}
+              src={DoubleDownArrow}
+            />
+          </div>
+          {this.state.hideAdd ? null : <Edtr onSave={this.onSaveHandler} />}
           <div
             style={{
               display: "flex",
@@ -150,15 +145,9 @@ class Events extends Component {
               startDate={evnt.startDate}
               status={evnt.status}
               onDelete={() => this.deleteButtonHandler(evnt.id)}
-              click={this.handleClickMore}
             />
           ))}
-          <button style={{ width: "300px" }} onClick={this.handdleClickAdd}>
-            Add an event
-          </button>
-          {this.state.hideAdd ? null : <Edtr onSave={this.onSaveHandler} />}
         </div>
-        {rightSide}
       </div>
     );
   }
