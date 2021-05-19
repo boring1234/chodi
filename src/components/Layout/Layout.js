@@ -38,7 +38,9 @@ const layout = (props) => {
       <div
         style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
       ></div>
-      <div style={{ margin: "15px 0 15px 15px" }}> Agenda</div>
+      <div style={{ margin: "15px 0 15px 15px" }}>
+        <Link to="/agenda">Agenda</Link>
+      </div>
       <div
         style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
       ></div>

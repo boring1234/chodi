@@ -6,6 +6,7 @@ import Pm from "./containers/Pm/Pm";
 import Upcoming from "./containers/Upcoming/Upcoming";
 import { BrowserRouter } from "react-router-dom";
 import { Route, Link } from "react-router-dom";
+import Calendar from "./containers/Calendar/Calendar";
 
 class App extends Component {
   state = {
@@ -26,6 +27,7 @@ class App extends Component {
             <Route path="/events" component={Events} />
             <Route path="/upcoming" component={Upcoming} />
             <Route path="/pm" component={Pm} />
+            <Route path="/agenda" component={Calendar} />
           </Layout>
         </div>
       </BrowserRouter>
