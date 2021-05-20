@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import MenuIcon from "./hamburger.jpeg";
 import DownArrow from "./downarrow.jpeg";
 import { Route, Link } from "react-router-dom";
+import AuthContext from "../../store/auth-context";
 
-const layout = (props) => {
+const Layout = (props) => {
+  const authCtx = useContext(AuthContext);
   let sidebar = (
     <div
       style={{
@@ -81,10 +83,11 @@ const layout = (props) => {
       width: "100%",
     };
   }
-
+  console.log(authCtx.isLoggedIn);
   return (
     <div style={{ display: "flex" }}>
-      {sidebar}
+      {!authCtx.isLoggedIn ? null : sidebar}
+
       <div style={rightPortionStyle}>
         <div
           style={{
@@ -96,13 +99,21 @@ const layout = (props) => {
             height: "30px",
           }}
         >
-          <div onClick={props.click}>
-            <img style={{ width: "40px" }} src={MenuIcon} />
-          </div>
-          <div>
-            Account Setting
-            <img style={{ width: "10px" }} src={DownArrow} />
-          </div>
+          {!authCtx.isLoggedIn ? null : (
+            <div onClick={props.click}>
+              <img style={{ width: "40px" }} src={MenuIcon} />
+            </div>
+          )}
+          {!authCtx.isLoggedIn ? (
+            <div style={{ margin: "auto" }}>
+              <Link to="/auth">Sign In/Up</Link>
+            </div>
+          ) : (
+            <div>
+              Account Setting
+              <img style={{ width: "10px" }} src={DownArrow} />
+            </div>
+          )}
         </div>
         {props.children}
       </div>
@@ -110,4 +121,4 @@ const layout = (props) => {
   );
 };
 
-export default layout;
+export default Layout;
