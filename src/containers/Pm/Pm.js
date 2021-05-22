@@ -72,8 +72,8 @@ export default class Pm extends Component {
           >
             {this.state.persons.map((ele) => (
               <Person
-                name={ele.name}
                 status={ele.status}
+                name={ele.name}
                 phoneNumber={ele.phoneNumber}
                 email={ele.email}
               />
