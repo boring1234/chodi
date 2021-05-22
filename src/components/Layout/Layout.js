@@ -1,11 +1,23 @@
 import React, { useContext } from "react";
 import MenuIcon from "./hamburger.jpeg";
 import DownArrow from "./downarrow.jpeg";
-import { Route, Link } from "react-router-dom";
+import LogoutIcon from "./logout.jpeg";
+import Logo from "./logo.png";
+import { Route, Link, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
+import PieChartPm from "../Chart/PieChartPm";
+import PieChart from "../Chart/PieChart";
 
 const Layout = (props) => {
+  const history = useHistory();
   const authCtx = useContext(AuthContext);
+
+  const logoutHandler = () => {
+    authCtx.logout();
+    // optional: redirect the user
+    history.replace("/");
+  };
   let sidebar = (
     <div
       style={{
@@ -21,47 +33,67 @@ const Layout = (props) => {
         left: "0",
       }}
     >
-      <div style={{ margin: "15px 0 15px 15px" }}>(ChoDi img LOGO)</div>
       <div
-        style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
-      ></div>
-      <div style={{ margin: "15px 0 15px 15px" }}>
-        <Link to="/upcoming">Upcoming Events</Link>
-      </div>
-      <div
-        style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
-      ></div>
-      <div
-        style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
-      ></div>
-      <div style={{ margin: "15px 0 15px 15px" }}>
-        <Link to="/events">Events</Link>
+        onClick={() => {
+          history.replace("/");
+        }}
+      >
+        <img src={Logo} style={{ width: "100%" }} />
       </div>
       <div
         style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
       ></div>
       <div style={{ margin: "15px 0 15px 15px" }}>
-        <Link to="/agenda">Agenda</Link>
+        <Link
+          to="/upcoming"
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
+          Upcoming Events
+        </Link>
+      </div>
+
+      <div
+        style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
+      ></div>
+      <div style={{ margin: "15px 0 15px 15px" }}>
+        <Link to="/events" style={{ color: "inherit", textDecoration: "none" }}>
+          Events
+        </Link>
       </div>
       <div
+        style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
+      ></div>
+      <div style={{ margin: "15px 0 15px 15px" }}>
+        <Link to="/agenda" style={{ color: "inherit", textDecoration: "none" }}>
+          Agenda
+        </Link>
+      </div>
+      {/* <div
         style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
       ></div>
       <div style={{ margin: "15px 0 15px 15px" }}> Funds</div>
       <div
         style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
       ></div>
-      <div style={{ margin: "15px 0 15px 15px" }}> Crm</div>
+      <div style={{ margin: "15px 0 15px 15px" }}> Crm</div> */}
       <div
         style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
       ></div>
       <div style={{ margin: "15px 0 15px 15px" }}>
-        <Link to="/expenses">Report</Link>
+        <Link
+          to="/expenses"
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
+          Report
+        </Link>
       </div>
       <div
         style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
       ></div>
       <div style={{ margin: "15px 0 15px 15px" }}>
-        <Link to="/pm">Project Management</Link>
+        <Link to="/pm" style={{ color: "inherit", textDecoration: "none" }}>
+          Project Management
+        </Link>
       </div>
     </div>
   );
@@ -84,6 +116,15 @@ const Layout = (props) => {
     };
   }
   console.log(authCtx.isLoggedIn);
+  if (!authCtx.isLoggedIn) {
+    sidebar = null;
+    rightPortionStyle = {
+      display: "flex",
+      boxSizing: "border-box",
+      flexDirection: "column",
+      width: "100%",
+    };
+  }
   return (
     <div style={{ display: "flex" }}>
       {!authCtx.isLoggedIn ? null : sidebar}
@@ -106,12 +147,31 @@ const Layout = (props) => {
           )}
           {!authCtx.isLoggedIn ? (
             <div style={{ margin: "auto" }}>
-              <Link to="/auth">Sign In/Up</Link>
+              <Link
+                to="/auth"
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+                Sign In/Up
+              </Link>
             </div>
           ) : (
-            <div>
-              Account Setting
-              <img style={{ width: "10px" }} src={DownArrow} />
+            <div style={{ display: "flex" }}>
+              <div style={{ margin: "0 30px" }}>
+                <Link
+                  to="profile"
+                  style={{ color: "inherit", textDecoration: "none" }}
+                >
+                  Account Setting
+                </Link>
+                <img style={{ width: "10px" }} src={DownArrow} />
+              </div>
+              <div style={{ margin: "0 30px" }} onClick={logoutHandler}>
+                Log Out{" "}
+                <img
+                  style={{ width: "10px", height: "10px" }}
+                  src={LogoutIcon}
+                />
+              </div>
             </div>
           )}
         </div>

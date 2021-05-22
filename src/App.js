@@ -10,6 +10,7 @@ import Calendar from "./containers/Calendar/Calendar";
 import AuthPage from "./containers/AuthPage/AuthPage";
 import AuthContext, { AuthContextProvider } from "./store/auth-context";
 import HomePage from "./containers/HomePage/HomePage";
+import ProfilePage from "./containers/ProfilePage/ProfilePage";
 /*
 const App = () => {
   const authCtx = useContext(AuthContext);
@@ -62,26 +63,33 @@ class App extends Component {
       // <AuthContextProvider>
       //   <BrowserRouter>
       <Layout click={this.handdleHideSidebar} hide={this.state.hideSideabr}>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/auth" component={AuthPage} />
+        <Switch>
+          <Route path="/" exact component={HomePage} />
+          <Route path="/auth" component={AuthPage} />
 
-        {this.context.isLoggedIn && (
-          <Route path="/expenses" component={Expenses} />
-        )}
-        {this.context.isLoggedIn && <Route path="/events" component={Events} />}
+          {this.context.isLoggedIn && (
+            <Route path="/expenses" component={Expenses} />
+          )}
+          {this.context.isLoggedIn && (
+            <Route path="/events" component={Events} />
+          )}
 
-        {this.context.isLoggedIn && (
-          <Route path="/upcoming" component={Upcoming} />
-        )}
+          {this.context.isLoggedIn && (
+            <Route path="/upcoming" component={Upcoming} />
+          )}
 
-        {this.context.isLoggedIn && <Route path="/pm" component={Pm} />}
+          {this.context.isLoggedIn && <Route path="/pm" component={Pm} />}
 
-        {this.context.isLoggedIn && (
-          <Route path="/agenda" component={Calendar} />
-        )}
-        <Route path="*">
-          <Redirect to="/" />
-        </Route>
+          {this.context.isLoggedIn && (
+            <Route path="/agenda" component={Calendar} />
+          )}
+          {this.context.isLoggedIn && (
+            <Route path="/profile" component={ProfilePage} />
+          )}
+          <Route path="*">
+            <Redirect to="/" />
+          </Route>
+        </Switch>
       </Layout>
       //   </BrowserRouter>
       // </AuthContextProvider>

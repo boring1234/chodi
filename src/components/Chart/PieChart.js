@@ -28,7 +28,6 @@ class PieChart extends Component {
   };
 
   render() {
-    console.log("something");
     return (
       <div style={{ width: "40%", height: "40%" }}>
         <Pie
