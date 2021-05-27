@@ -8,6 +8,7 @@ import Event from "../../components/Event/Event";
 import EventHeader from "../../components/EventHeader/EventHeader";
 import Tracker from "../../components/Tracker/Tracker";
 import DoubleDownArrow from "./doubleArrow.png";
+import Upcomings from "../../components/Upcomings/Upcomings";
 
 class Events extends Component {
   state = {
@@ -35,7 +36,8 @@ class Events extends Component {
 
         for (const key in response.data) {
           temp.push({
-            id: key,
+            id: response.data[key].id,
+            id_key: key,
             attnType: response.data[key].attnType,
             endDate: response.data[key].endDate,
             endTime: response.data[key].endTime,
@@ -64,8 +66,14 @@ class Events extends Component {
   }
   onSaveHandler = (data) => {
     const newData = { ...data };
+    let activeStatus = data.status === "active" ? 1 : 0;
+    let archivedStatus = data.status === "archived" ? 1 : 0;
     console.log(newData);
-    this.setState({ event: [...this.state.event, newData] });
+    this.setState((prevState) => ({
+      event: [...this.state.event, newData],
+      active: prevState.active + activeStatus,
+      archived: prevState.archived + archivedStatus,
+    }));
   };
 
   handdleClickAdd = () => {
@@ -73,16 +81,21 @@ class Events extends Component {
     this.setState({ hideAdd: !hideAdd });
   };
 
-  deleteButtonHandler = (id) => {
+  deleteButtonHandler = (id, id_key) => {
+    const event = [...this.state.event];
+    console.log(event);
+    const updated = event.filter((item) => item.id != id);
+    console.log(updated);
     this.setState(
       {
-        event: this.state.event.filter((item) => item.id != id),
+        event: updated,
       },
       () =>
         axios.delete(
-          `${"https://react-chodi-default-rtdb.firebaseio.com"}/events/${id}.json`,
+          `${"https://react-chodi-default-rtdb.firebaseio.com"}/events/${id_key}.json`,
         ),
     );
+    console.log(this.state.event);
   };
 
   render() {
@@ -144,9 +157,10 @@ class Events extends Component {
               startTime={evnt.startTime}
               startDate={evnt.startDate}
               status={evnt.status}
-              onDelete={() => this.deleteButtonHandler(evnt.id)}
+              onDelete={() => this.deleteButtonHandler(evnt.id, evnt.id_key)}
             />
           ))}
+          <Upcomings event={this.state.event} />
         </div>
       </div>
     );

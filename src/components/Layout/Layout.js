@@ -43,7 +43,7 @@ const Layout = (props) => {
       <div
         style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
       ></div>
-      <div style={{ margin: "15px 0 15px 15px" }}>
+      {/* <div style={{ margin: "15px 0 15px 15px" }}>
         <Link
           to="/upcoming"
           style={{ color: "inherit", textDecoration: "none" }}
@@ -54,10 +54,18 @@ const Layout = (props) => {
 
       <div
         style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
-      ></div>
+      ></div> */}
       <div style={{ margin: "15px 0 15px 15px" }}>
         <Link to="/events" style={{ color: "inherit", textDecoration: "none" }}>
           Events
+        </Link>
+      </div>
+      <div
+        style={{ width: "100%", height: "0.2px", backgroundColor: "#bfbbba" }}
+      ></div>
+      <div style={{ margin: "15px 0 15px 15px" }}>
+        <Link to="/fund" style={{ color: "inherit", textDecoration: "none" }}>
+          Fund
         </Link>
       </div>
       <div
@@ -125,6 +133,11 @@ const Layout = (props) => {
       width: "100%",
     };
   }
+
+  // let narBarWidth = "80vw";
+  // if (props.hide || !authCtx.isLoggedIn) {
+  //   narBarWidth = "100vw";
+  // }
   return (
     <div style={{ display: "flex" }}>
       {!authCtx.isLoggedIn ? null : sidebar}
@@ -138,6 +151,11 @@ const Layout = (props) => {
             border: "0.5px solid #bfbbba",
             backgroundColor: "#ebebeb",
             height: "30px",
+            left: props.hide || !authCtx.isLoggedIn ? "0" : "20%",
+            top: "0",
+            width: props.hide || !authCtx.isLoggedIn ? "100vw" : "80vw",
+            position: "fixed",
+            zIndex: "9999",
           }}
         >
           {!authCtx.isLoggedIn ? null : (
@@ -147,12 +165,7 @@ const Layout = (props) => {
           )}
           {!authCtx.isLoggedIn ? (
             <div style={{ margin: "auto" }}>
-              <Link
-                to="/auth"
-                style={{ color: "inherit", textDecoration: "none" }}
-              >
-                Sign In/Up
-              </Link>
+              <Link to="/auth">Sign In/Up</Link>
             </div>
           ) : (
             <div style={{ display: "flex" }}>
@@ -175,6 +188,7 @@ const Layout = (props) => {
             </div>
           )}
         </div>
+        <div style={{ height: "30px" }}></div>
         {props.children}
       </div>
     </div>

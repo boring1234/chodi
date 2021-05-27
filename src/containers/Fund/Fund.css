@@ -1,0 +1,260 @@
+#wrapper {
+  overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+/*Progress Bar*/
+.progress-bar {
+  width: 400px;
+  height: 3em;
+  background-color: #808080;
+  border-radius: 1.5em;
+  position: relative;
+  color: white;
+}
+.progress-bar::before {
+  content: attr(data-label);
+  display: flex;
+  position: absolute;
+  align-items: center;
+  left: 0.5em;
+  top: 0.5em;
+  bottom: 0.5em;
+  min-width: 2rem;
+  width: var(--width, 0);
+  max-width: calc(100%-1em);
+  background-color: #0094ff;
+  border-radius: 1em;
+  padding: 1em;
+}
+/*Add payment method*/
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 5px 6px 6px 2px #e9ecef;
+}
+
+.heading {
+  font-size: 23px;
+  font-weight: 00;
+}
+
+.text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #b1b6bd;
+}
+
+.pricing {
+  border: 2px solid #304ffe;
+  background-color: #f2f5ff;
+}
+
+.business {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.plan {
+  color: #aba4a4;
+}
+
+.dollar {
+  font-size: 16px;
+  color: #6b6b6f;
+}
+
+.amount {
+  font-size: 50px;
+  font-weight: 500;
+}
+
+.year {
+  font-size: 20px;
+  color: #6b6b6f;
+  margin-top: 19px;
+}
+
+.detail {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.cvv {
+  height: 44px;
+  width: 73px;
+  border: 2px solid #eee;
+}
+
+.cvv:focus {
+  box-shadow: none;
+  border: 2px solid #304ffe;
+}
+
+.email-text {
+  height: 55px;
+  border: 2px solid #eee;
+}
+
+.email-text:focus {
+  box-shadow: none;
+  border: 2px solid #304ffe;
+}
+
+.payment-button {
+  height: 70px;
+  font-size: 20px;
+}
+
+/*FUNDRASING*/
+.listToDonateTo {
+  margin-top: 15px;
+}
+.listToDonateTo img {
+  height: 170px;
+  width: 170px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 20px;
+}
+
+.listToDonateTo {
+  margin-top: 15px;
+}
+.listToDonateTo1 img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 20px;
+}
+.company-name {
+  margin-top: 20px;
+}
+
+.com_name p {
+  font-size: 48px;
+}
+.company-sec1 img {
+  height: 250px;
+  width: 250px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 20px;
+}
+.company-sec img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 20px;
+}
+
+/*events */
+.filterable {
+  margin-top: 15px;
+}
+.filterable .panel-heading .pull-right {
+  margin-top: -20px;
+}
+.filterable .filters input[disabled] {
+  background-color: transparent;
+  border: none;
+  cursor: auto;
+  box-shadow: none;
+  padding: 0;
+  height: auto;
+}
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+  color: #333;
+}
+.filterable .filters input[disabled]::-moz-placeholder {
+  color: #333;
+}
+.filterable .filters input[disabled]:-ms-input-placeholder {
+  color: #333;
+}
+
+/*payment box*/
+body {
+  background: #f5f5f5;
+  margin-top: 20px;
+}
+.card {
+  border: none;
+  -webkit-box-shadow: 1px 0 20px rgba(96, 93, 175, 0.05);
+  box-shadow: 1px 0 20px rgba(96, 93, 175, 0.05);
+  margin-bottom: 30px;
+}
+.table th {
+  font-weight: 500;
+  color: #827fc0;
+}
+.table thead {
+  background-color: #f3f2f7;
+}
+.table > tbody > tr > td,
+.table > tfoot > tr > td,
+.table > thead > tr > td {
+  padding: 14px 12px;
+  vertical-align: middle;
+}
+.table tr td {
+  color: #8887a9;
+}
+.thumb-sm {
+  height: 32px;
+  width: 32px;
+}
+.badge-soft-warning {
+  background-color: rgba(248, 201, 85, 0.2);
+  color: #f8c955;
+}
+
+.badge {
+  font-weight: 500;
+}
+.badge-soft-primary {
+  background-color: rgba(96, 93, 175, 0.2);
+  color: #605daf;
+}

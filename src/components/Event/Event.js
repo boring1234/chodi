@@ -6,7 +6,6 @@ export default function Event(props) {
 
   const expansionHandler = () => {
     setExpansion(!expansion);
-    console.log(expansion);
   };
 
   //

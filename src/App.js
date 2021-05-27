@@ -11,6 +11,7 @@ import AuthPage from "./containers/AuthPage/AuthPage";
 import AuthContext, { AuthContextProvider } from "./store/auth-context";
 import HomePage from "./containers/HomePage/HomePage";
 import ProfilePage from "./containers/ProfilePage/ProfilePage";
+import Fund from "./containers/Fund/Fund";
 /*
 const App = () => {
   const authCtx = useContext(AuthContext);
@@ -83,6 +84,7 @@ class App extends Component {
           {this.context.isLoggedIn && (
             <Route path="/agenda" component={Calendar} />
           )}
+          {this.context.isLoggedIn && <Route path="/fund" component={Fund} />}
           {this.context.isLoggedIn && (
             <Route path="/profile" component={ProfilePage} />
           )}

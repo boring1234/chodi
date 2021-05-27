@@ -54,6 +54,7 @@ export default function Edtr(props) {
     setStatus("active");
 
     const data = {
+      id: Math.random(),
       eventPicture: eventPicture,
       eventName: eventName,
       attnType: attnType,
@@ -63,12 +64,26 @@ export default function Edtr(props) {
       endTime: endTime,
       status: status,
     };
-    // console.log(data.eventPicture);
-    props.onSave(data);
-    axios.post(
-      "https://react-chodi-default-rtdb.firebaseio.com/events.json",
-      data,
-    );
+    var d = new Date(data.startDate + "T" + data.startTime + "-07:00");
+    var d1 = new Date(data.endDate + "T" + data.endTime + "-07:00");
+    var milliseconds = d.getTime();
+    var milliseconds1 = d1.getTime();
+    if (milliseconds1 < milliseconds) {
+      alert("End date and time cannot be earlier than start date and time !");
+    } else {
+      axios
+        .post(
+          "https://react-chodi-default-rtdb.firebaseio.com/events.json",
+          data,
+        )
+        .then((res) => {
+          console.log(res.data.name);
+          const dataWithKey = { ...data, id_key: res.data.name };
+          console.log(dataWithKey);
+          props.onSave(dataWithKey);
+        });
+      // console.log(data);
+    }
   };
 
   return (
