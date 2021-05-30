@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Fund.css";
 import UnitedHopeForAnimals from "./UnitedHopeForAnimals.jpg";
 import barkbox from "./dogpark.jpg";
@@ -9,8 +9,40 @@ import purina from "./purina.png";
 import beachday from "./beachday.jpg";
 import dogpark from "./dogpark.jpg";
 import clinic from "./Clinic.jpg";
+import EventFund from "../../components/EventFund/EventFund";
+import axios from "../../axios-event";
 
 export default function Fund() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    console.log("inside useEffect");
+    axios
+      .get("https://react-chodi-default-rtdb.firebaseio.com/events.json")
+      .then((response) => {
+        const temp = [];
+
+        for (const key in response.data) {
+          temp.push({
+            Subject: response.data[key].eventName,
+            StartTime: new Date(
+              response.data[key].startDate +
+                "T" +
+                response.data[key].startTime +
+                "-07:00",
+            ),
+            EndTime: new Date(
+              response.data[key].endDate +
+                "T" +
+                response.data[key].endTime +
+                "-07:00",
+            ),
+          });
+        }
+
+        setData([...data, ...temp]);
+      });
+  }, []);
+
   return (
     <div className="App">
       <div id="page-content-wrapper">
@@ -415,7 +447,7 @@ export default function Fund() {
                   <h2>Fundraising Campaign</h2>
                 </row>
               </div>
-              <div>
+              {/*<!-- <div>
                 <div className="listToDonateTo">
                   <row>
                     <img src={beachday} alt="United Hope For Animals Logo" />
@@ -477,7 +509,14 @@ export default function Fund() {
                   </row>
                 </div>
                 <div className="clearfix"></div>
-              </div>
+              </div> -->*/}
+              {data.map((ele) => (
+                <EventFund
+                  eventName={ele.Subject}
+                  startDate={ele.StartTime.toLocaleDateString()}
+                  endDate={ele.EndTime.toLocaleDateString()}
+                />
+              ))}
             </div>
           </div>
         </div>
