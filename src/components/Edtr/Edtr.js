@@ -104,6 +104,7 @@ export default function Edtr(props) {
           name="eventName"
           onChange={eventNameHandler}
           style={{ width: "400px" }}
+          required
         ></input>
         <p>ATTENDEE TYPE</p>
         <select value={attnType} onChange={attnTypeHandler}>
@@ -115,15 +116,27 @@ export default function Edtr(props) {
           type="date"
           onChange={startDateHandler}
           value={startDate}
+          required
         ></input>
         <input
           type="time"
           onChange={startTimeHandler}
           value={startTime}
+          required
         ></input>
         <p>EVENT END</p>
-        <input type="date" onChange={endDateHandler} value={endDate}></input>
-        <input type="time" onChange={endTimeHandler} value={endTime}></input>
+        <input
+          type="date"
+          onChange={endDateHandler}
+          value={endDate}
+          required
+        ></input>
+        <input
+          type="time"
+          onChange={endTimeHandler}
+          value={endTime}
+          required
+        ></input>
         <p>STATUS</p>
         <select value={status} onChange={statusHandler}>
           <option value="archived">archived</option>

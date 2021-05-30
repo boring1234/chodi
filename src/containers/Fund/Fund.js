@@ -23,6 +23,7 @@ export default function Fund() {
 
         for (const key in response.data) {
           temp.push({
+            eventPicture: response.data[key].eventPicture,
             Subject: response.data[key].eventName,
             StartTime: new Date(
               response.data[key].startDate +
@@ -512,6 +513,7 @@ export default function Fund() {
               </div> -->*/}
               {data.map((ele) => (
                 <EventFund
+                  eventPicture={ele.eventPicture}
                   eventName={ele.Subject}
                   startDate={ele.StartTime.toLocaleDateString()}
                   endDate={ele.EndTime.toLocaleDateString()}
